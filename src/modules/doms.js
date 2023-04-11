@@ -1,11 +1,14 @@
 import tasks from "./tasks";
 import projects from "./project";
 const dom = (() => {
+    const projectForm = document.querySelector('#project-form');
+    const taskForm = document.querySelector('#task-form');
     const closeModalButtons = document.querySelectorAll('.modal-close');
     const overlay = document.querySelector('.overlay');
     const addProjectBtn = document.getElementById('create-new-project');
     const projectSubmitBtn = document.getElementById('project-add-button');
     const addTaskBtn = document.querySelector('#add-task-btn');
+    const taskSubmitBtn = document.querySelector('#task-add-button');
 
     const domEvents = () => {
         // MODAL OPENING STUFF  
@@ -38,10 +41,17 @@ const dom = (() => {
         projectSubmitBtn.addEventListener('click', () => {
             event.preventDefault();
             projects.addProject(projects.getInfoFromInput())
+            projectForm.reset();
         })
     
         addTaskBtn.addEventListener('click', () => {
             openModal(document.querySelector('#task-modal'));
+        })
+
+        taskSubmitBtn.addEventListener('click', () => {
+            event.preventDefault();
+            tasks.addTask();
+            taskForm.reset();
         })
     } 
 

@@ -13,25 +13,23 @@
     </div>
 
     <section class="sidebar">
-        <button class="sidebar-btns" id="all-tasks">Tasks</button>
-
         <div class="project-container">
-            <div class="project-header">#Projects</div>
+            <div class="project-header">Projects</div>
             <button class="sidebar-btns" id="create-new-project">+ Create New Projects</button>
             <div class="project-list">
-                <button class="projects">Project 1</button>
-                <button class="projects">Project 2</button>
-                <button class="projects">Project 3</button>
             </div>
         </div>
     </section>
 
-    <section class="task-container">
-        <button id="add-task-btn">New Task</button>
+    <section class="tasks-section">
+        <button id="add-task-btn">+ New Task</button>
+        <div class="tasks-container">
+
+        </div>
     </section>
 
     <div class="modal" id="project-modal">
-        <form class="form">
+        <form class="form" id="project-form">
             <div class="form-header">
             <h2>Add New Project</h2>
             <button  class='modal-close' id="project-close-button"><img id="exit-button" src="images/exit button.png" width="45px" height="45px"></button>
@@ -49,7 +47,7 @@
     </div>
 
     <div class="modal" id="task-modal">
-        <form class="form">
+        <form class="form" id="task-form">
             <div class="form-header">
             <h2>Add New Task</h2>
             <button  class='modal-close' id="task-close-button"><img id="exit-button" src="images/exit button.png" width="45px" height="45px"></button>
@@ -58,7 +56,7 @@
                 <input
                 class="input"
                 type="text"
-                id="title"
+                id="task-title"
                 placeholder="TITLE"
                 />
             </div>
@@ -66,9 +64,27 @@
                 <input
                 class="input"
                 type="text"
-                id="description"
+                id="task-description"
                 placeholder="DESCRIPTION"
                 />
+            </div>
+            <div>
+                <input
+                class="input"
+                type="date"
+                id="task-due-date"
+                placeholder="DUE DATE"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+                />
+            </div>
+            <div>
+                <select class="input" id="priority-select">
+                    <option value="none">SELECT PRIORITY</option>
+                    <option value="low">LOW</option>
+                    <option value="medium">MEDIUM</option>
+                    <option value="high">HIGH</option>
+                </select>
             </div>
 
             <button class='modal-close' id="task-add-button" type="submit">Add Task</button>

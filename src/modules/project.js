@@ -1,3 +1,6 @@
+import activeProjectType from "..";
+import tasks from "./tasks";
+
 const projects = (() => {
     let projectsList = [];
 
@@ -22,6 +25,12 @@ const projects = (() => {
             projectBtn.innerHTML = project.title;
             projectBtn.classList.add('projects');
             projectList.appendChild(projectBtn);
+
+            projectBtn.addEventListener('click', () => {
+                activeProjectType = project.title
+                console.log('Project type: ' + activeProjectType);
+                tasks.displayTasks();
+            })
         });
     }
 
@@ -30,7 +39,11 @@ const projects = (() => {
         return title;
     }
 
-    return{ addProject, displayProjects, getInfoFromInput }
+    const setProjectType = (projectTitle) => {
+        activeProjectType = projectTitle;
+    }
+
+    return{ projectsList, addProject, displayProjects, getInfoFromInput, setProjectType }
 })();
 
 export default projects;
