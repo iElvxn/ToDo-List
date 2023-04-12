@@ -36,7 +36,6 @@ const tasks = (() => {
                     const checkBtn = document.createElement('img');
                     checkBtn.classList.add('check-button');
                     checkBtn.src = './images/unchecked.png'
-
                     const title = document.createElement('div');
                     title.innerHTML = task.title;
                     title.classList.add('task-title');

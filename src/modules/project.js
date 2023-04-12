@@ -26,11 +26,21 @@ const projects = (() => {
             projectBtn.classList.add('projects');
             projectList.appendChild(projectBtn);
 
-            projectBtn.addEventListener('click', () => {
-                activeProjectType = project.title
-                console.log('Project type: ' + activeProjectType);
+            projectBtn.addEventListener('click', () => { /// when a project is selected
+                const header = document.querySelector('.task-container-header');
+                activeProjectType = project.title;
+                header.innerHTML = project.title;
+                unselectProjectBtns();
+                projectBtn.classList.add('active');
                 tasks.displayTasks();
             })
+        });
+    }
+
+    const unselectProjectBtns = () => {
+        const projectBtns = document.querySelectorAll('.projects');
+        projectBtns.forEach(project => {
+            project.classList.remove('active');
         });
     }
 
@@ -43,7 +53,7 @@ const projects = (() => {
         activeProjectType = projectTitle;
     }
 
-    return{ projectsList, addProject, displayProjects, getInfoFromInput, setProjectType }
+    return{ projectsList, addProject, displayProjects, getInfoFromInput, setProjectType, unselectProjectBtns }
 })();
 
 export default projects;
