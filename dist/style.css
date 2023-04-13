@@ -131,7 +131,8 @@ body {
     gap: 10px  ;
 }
 
-.check-button {
+.check-button,
+.delete-button {
     background-color: transparent;
     border: none;
     width: 20px;
@@ -139,7 +140,8 @@ body {
     cursor: pointer;
 }
 
-.check-button:hover {
+.check-button:hover,
+.delete-button:hover {
     scale: 1.1;
 }
 

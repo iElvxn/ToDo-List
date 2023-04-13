@@ -24,7 +24,7 @@ const tasks = (() => {
     }
 
     const displayTasks = () => {
-        const tasksContainer = document.querySelector('.tasks-container')
+        const tasksContainer = document.querySelector('.tasks-container');
         tasksContainer.innerHTML = '';
         projects.projectsList.forEach(project => {
             if(project.title === activeProjectType){
@@ -32,7 +32,7 @@ const tasks = (() => {
                     const taskBtn = document.createElement('div');
                     taskBtn.classList.add('task-btn');
                     const left = document.createElement('div');
-                    left.classList.add('task-left')
+                    left.classList.add('task-left');
                     const checkBtn = document.createElement('img');
                     checkBtn.classList.add('check-button');
                     checkBtn.src = './images/unchecked.png'
@@ -43,9 +43,10 @@ const tasks = (() => {
                     left.append(checkBtn, title);
 
                     const right = document.createElement('div');
-                    right.classList.add('task-right')
-                    const deleteBtn = document.createElement('button');
+                    right.classList.add('task-right');
+                    const deleteBtn = document.createElement('img');
                     deleteBtn.classList.add('delete-button');
+                    deleteBtn.src = './images/trashcan.png';
                     const taskDueDate = document.createElement('div');
                     taskDueDate.innerHTML = task.dueDate;
                     taskDueDate.classList.add('task-due-date');
@@ -53,9 +54,36 @@ const tasks = (() => {
 
                     taskBtn.append(left, right);
                     tasksContainer.appendChild(taskBtn);
+
+                    checkBtn.addEventListener('click', () => {
+                        taskCompleted(task, checkBtn);
+                    })
+                    
+                    deleteBtn.addEventListener('click', () => {
+                        deleteTask(project, task);
+                    })
                 })
             }
         })
+    }
+    
+    const taskCompleted = (task, checkBtn) => {
+        if(task.completed === false){
+            task.completed = true;
+            checkBtn.src = './images/checked.png';
+        } else {
+            task.completed = false;
+            checkBtn.src = './images/unchecked.png';
+        }
+    }
+
+    const deleteTask = (project, task) => {
+        project.tasks.splice(project.tasks.indexOf(task), 1);
+        displayTasks();
+    }
+
+    const displayDetails = (task) => {
+        
     }
 
     function getInfoFromInput() {
@@ -69,7 +97,7 @@ const tasks = (() => {
         return task;
     }
 
-    return{ addTask, displayTasks }
+    return{ addTask, displayTasks, deleteTask, displayDetails, taskCompleted }
 })();
 
 export default tasks;
