@@ -1,11 +1,11 @@
 import activeProjectType from "..";
 import projects from "./project";
+import dom from "./doms";
 
 const tasks = (() => {
     class Task {
-        constructor(title, description, dueDate, priority, projectName) {
+        constructor(title, dueDate, priority, projectName) {
         this.title = title;
-        this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.projectName = projectName;
@@ -15,7 +15,8 @@ const tasks = (() => {
 
     const addTask = () => {
         const task = getInfoFromInput();
-        projects.projectsList.forEach(project => {
+        let projectsList = projects.getProjectList();
+        projectsList.forEach(project => {
             if(project.title === task.projectName){
                 project.tasks.push(task);
                 displayTasks();
@@ -26,7 +27,8 @@ const tasks = (() => {
     const displayTasks = () => {
         const tasksContainer = document.querySelector('.tasks-container');
         tasksContainer.innerHTML = '';
-        projects.projectsList.forEach(project => {
+        let projectsList = projects.getProjectList();
+        projectsList.forEach(project => {
             if(project.title === activeProjectType){
                 project.tasks.forEach(task => {
                     const taskBtn = document.createElement('div');
@@ -37,8 +39,10 @@ const tasks = (() => {
                     checkBtn.classList.add('check-button');
                     checkBtn.src = './images/unchecked.png'
                     const title = document.createElement('div');
+                    title.classList.add('task-title')
                     title.innerHTML = task.title;
                     title.classList.add('task-title');
+                    checkTaskCompletion(task, checkBtn, title);
 
                     left.append(checkBtn, title);
 
@@ -50,13 +54,15 @@ const tasks = (() => {
                     const taskDueDate = document.createElement('div');
                     taskDueDate.innerHTML = task.dueDate;
                     taskDueDate.classList.add('task-due-date');
+                   
+
                     right.append(taskDueDate, deleteBtn);
 
                     taskBtn.append(left, right);
                     tasksContainer.appendChild(taskBtn);
 
                     checkBtn.addEventListener('click', () => {
-                        taskCompleted(task, checkBtn);
+                        taskCompleted(task, checkBtn, title);
                     })
                     
                     deleteBtn.addEventListener('click', () => {
@@ -65,15 +71,30 @@ const tasks = (() => {
                 })
             }
         })
+        projects.storeProjects();
     }
     
-    const taskCompleted = (task, checkBtn) => {
+    const taskCompleted = (task, checkBtn, title) => {
+        console.log(task.completed)
         if(task.completed === false){
             task.completed = true;
+            title.classList.add('completed');
             checkBtn.src = './images/checked.png';
         } else {
             task.completed = false;
+            title.classList.remove('completed');
             checkBtn.src = './images/unchecked.png';
+        }
+        projects.storeProjects();
+    }
+
+    const checkTaskCompletion = (task, checkBtn, title) => {
+        if(task.completed === false){
+            title.classList.remove('completed')
+            checkBtn.src = './images/unchecked.png';
+        } else {
+            checkBtn.src = './images/checked.png';
+            title.classList.add('completed')
         }
     }
 
@@ -82,22 +103,16 @@ const tasks = (() => {
         displayTasks();
     }
 
-    const displayDetails = (task) => {
-        
-    }
-
     function getInfoFromInput() {
         const title = document.getElementById('task-title').value;
-        const description = document.getElementById('task-title').value;
         const dueDate = document.getElementById('task-due-date').value;
         const priority = document.getElementById('priority-select').value;
         const projectName = activeProjectType;
-
-        const task = new Task(title, description, dueDate, priority, projectName);
+        const task = new Task(title, dueDate, priority, projectName);
         return task;
     }
 
-    return{ addTask, displayTasks, deleteTask, displayDetails, taskCompleted }
+    return{ addTask, displayTasks, deleteTask, taskCompleted, checkTaskCompletion }
 })();
 
 export default tasks;

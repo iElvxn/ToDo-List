@@ -18,20 +18,6 @@ const dom = (() => {
                 closeModal(modal);
             })
         })
-    
-        function openModal(modal){
-            event.preventDefault();
-            if(modal == null) return;
-            modal.classList.add('active');
-            overlay.classList.add('active');
-        }
-        
-        function closeModal(modal){
-            event.preventDefault();
-            if(modal == null) return;
-            modal.classList.remove('active');
-            overlay.classList.remove('active');
-        }
 
         //TASK AND PROJECT BUTTON STUFF 
         addProjectBtn.addEventListener('click', () => {
@@ -53,9 +39,23 @@ const dom = (() => {
             tasks.addTask();
             taskForm.reset();
         })
-    } 
+    }
 
-    return { domEvents }
+    function openModal(modal){
+        event.preventDefault();
+        if(modal == null) return;
+        modal.classList.add('active');
+        overlay.classList.add('active');
+    }
+    
+    function closeModal(modal){
+        event.preventDefault();
+        if(modal == null) return;
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    return { domEvents, openModal, closeModal }
 })();
 
 export default dom;
