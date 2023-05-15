@@ -5,8 +5,9 @@
 
 body {
     margin: 0px;
+    padding: 0px;
     font-family: 'Cocogoose';
-    overflow-x: hidden;
+    /*-x: hidden;*/
     background-color: #111025;
 }
 
@@ -110,11 +111,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: calc(100% - 15em + 30px);
+    width: calc(100% - 15em - 30px);
     height: 100%;
     background-color: #171730;
     position: absolute;
     left: calc(15em + 30px);
+    min-height: 0;
 }
 
 .task-container-header {
@@ -140,7 +142,9 @@ body {
 
 .tasks-container {
     display: flex;
+    align-items: center;
     flex-direction: column;
+    width: 100%;
     gap: 15px;
     margin-top: 30px;
 }
@@ -148,15 +152,18 @@ body {
 .task-btn {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    width: 70em;
+    align-items: center;
+    padding: 15px; 
+    width: 70%;
     height: 100%;
     background-color: #171730;
     border-radius: 7px;
     box-shadow: 0 0 17px 1px #8585E9;
     color: white;
+    min-width: 250px;
+    max-width: 1000px;
+    margin-left: 0;
 }
 
 .task-left,
